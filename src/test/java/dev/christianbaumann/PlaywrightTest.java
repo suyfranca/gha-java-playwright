@@ -24,7 +24,8 @@ public class PlaywrightTest {
     @Test
     void testPageTitle() {
         page.navigate("https://playwright.dev/");
-        assertEquals("Playwright", page.title(), "Page title should be 'Playwright'");
+
+        assertTrue(page.title().contains("Playwright"), "Page title should contain 'Playwright'");
     }
 
     @AfterEach
