@@ -1,0 +1,10 @@
+name: Basic Workflow
+on: workflow_dispatch
+jobs:
+  print_environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Print environment details
+        run: env
