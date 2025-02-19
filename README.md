@@ -1,7 +1,6 @@
 # GitHub Actions in action - Playwright Java Tests
 
-This repository contains **end-to-end UI tests** using [Playwright](https://playwright.dev/) with **Java** and **JUnit 5
-**.
+This repository contains **end-to-end UI tests** using [Playwright](https://playwright.dev/) with **Java** and **JUnit 5**.
 
 ## 🚀 Getting Started
 
