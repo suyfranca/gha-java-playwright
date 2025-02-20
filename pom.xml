@@ -37,7 +37,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <playwright.reporter>html</playwright.reporter>
-                        <playwright.report.dir>target/playwright-report</playwright.report.dir>
+                        <playwright.report.dir>${project.basedir}/target/playwright-report</playwright.report.dir>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

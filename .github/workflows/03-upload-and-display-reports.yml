@@ -19,11 +19,14 @@ jobs:
       - name: Install dependencies
         run: mvn install
 
-      - name: Run Playwright tests with report enabled
-        run: mvn test -Dplaywright.reporter=html -Dplaywright.report.dir=target/playwright-report/
+      - name: Create Playwright Report Directory
+        run: mkdir -p target/playwright-report
 
-      - name: Ensure report directory exists
-        run: ls -al target/playwright-report/ || echo "No reports found!"
+      - name: Run Playwright tests with report enabled
+        run: mvn test -Dplaywright.reporter=html -Dplaywright.report.dir=target/playwright-report
+
+      - name: Debug Report Directory
+        run: ls -al target/playwright-report || echo "No reports found!"
 
       - name: Upload Playwright Reports
         uses: actions/upload-artifact@v4
