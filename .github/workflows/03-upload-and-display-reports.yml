@@ -1,0 +1,32 @@
+name: Upload & Display Playwright Reports
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Install Playwright with dependencies
+        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+
+      - name: Install dependencies
+        run: mvn install
+
+      - name: Run Playwright tests
+        run: mvn test
+
+      - name: Upload Playwright Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-results
+          path: target/playwright-report/
+
+      - name: Display Test Report in GitHub UI
+        run: echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
