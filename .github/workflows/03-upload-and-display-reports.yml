@@ -22,11 +22,15 @@ jobs:
       - name: Run Playwright tests
         run: mvn test
 
+      - name: Ensure report directory exists
+        run: mkdir -p target/playwright-report
+
       - name: Upload Playwright Reports
         uses: actions/upload-artifact@v4
         with:
           name: playwright-results
           path: target/playwright-report/
+          if-no-files-found: error
 
       - name: Display Test Report in GitHub UI
         run: echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
