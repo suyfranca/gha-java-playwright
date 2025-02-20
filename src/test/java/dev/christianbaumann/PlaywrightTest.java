@@ -33,10 +33,10 @@ public class PlaywrightTest {
     void testPageTitle(TestInfo testInfo) {
         logTestInfo(testInfo, "Starting test: Page Title Verification");
 
-        // Act
+        // Arrange
         page.navigate("https://playwright.dev/");
 
-        // Assert
+        // Act & Assert
         assertTrue(page.title().contains("Playwright"), "Page title should contain 'Playwright'");
         logTestInfo(testInfo, "✅ Title validation successful.");
     }
