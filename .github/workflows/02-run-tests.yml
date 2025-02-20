@@ -15,6 +15,9 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Install Playwright browsers
+        run: mvn com.microsoft.playwright:playwright-java:install
+
       - name: Install dependencies
         run: mvn install
 
