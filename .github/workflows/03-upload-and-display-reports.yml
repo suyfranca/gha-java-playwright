@@ -1,5 +1,6 @@
 name: Upload & Display Playwright Reports
 on: push
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,30 +11,22 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
 
-      - name: Install Playwright with dependencies
-        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps
 
-      - name: Install dependencies
-        run: mvn install
+      - name: Build and Test with Maven
+        run: mvn clean test
 
-      - name: Create Playwright Report Directory
-        run: mkdir -p target/playwright-report
-
-      - name: Run Playwright tests with report enabled
-        run: mvn test -Dplaywright.reporter=html -Dplaywright.report.dir=target/playwright-report
-
-      - name: Debug Report Directory
-        run: ls -al target/playwright-report || echo "No reports found!"
-
-      - name: Upload Playwright Reports
+      - name: Upload Test Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-results
-          path: target/playwright-report/
-          if-no-files-found: error
+          name: test-artifacts
+          path: |
+            target/playwright-report
+            test-results
 
       - name: Display Test Report in GitHub UI
         run: echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
