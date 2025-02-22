@@ -1,0 +1,11 @@
+name: Playwright Summary
+
+description: "Formats Playwright test results"
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Format test results
+      run: cat test-results/report.txt | awk '{print "[TEST RESULT] " $0}'
+      shell: bash
