@@ -1,0 +1,21 @@
+name: Containerized Testing
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Playwright dependencies
+        run: mvn playwright:install
+
+      - name: Run Playwright tests
+        run: mvn test
