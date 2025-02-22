@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 jobs:
   print_environment:
+    name: Basic Workflow
     runs-on: ubuntu-latest
 
     steps:
