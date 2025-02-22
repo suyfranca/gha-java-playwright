@@ -1,0 +1,41 @@
+name: PR Comment Reporter
+description: "Posts test result summary as a comment on a pull request"
+
+inputs:
+  comment_file:
+    description: "Path to the file containing the test summary"
+    required: true
+    default: "test-results/report.txt"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Post PR Comment
+      shell: bash
+      run: |
+        # Check if the event is triggered from a pull request.
+        # If not, skip posting the comment.
+        if [ -z "${{ github.event.pull_request.number }}" ]; then
+          echo "Not a pull request; skipping comment."
+          exit 0
+        fi
+        
+        # Check if the specified test summary file exists.
+        # If it does, read its content; otherwise, set a default message.
+        if [ -f "${{ inputs.comment_file }}" ]; then
+          comment=$(cat "${{ inputs.comment_file }}")
+        else
+          comment="Test report file not found."
+        fi
+        
+        # Format the comment by adding a header and the test summary content.
+        formatted_comment=$(printf "### Test Results Summary\n\n%s" "$comment")
+        echo "Posting comment..."
+        
+        # Use the GitHub API to post the formatted comment to the pull request.
+        # The comment is posted to the PR identified by the event payload.
+        curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+             -H "Content-Type: application/json" \
+             -X POST \
+             -d "{\"body\": \"${formatted_comment//\"/\\\"}\"}" \
+             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
