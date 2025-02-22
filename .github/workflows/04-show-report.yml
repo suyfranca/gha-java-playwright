@@ -21,7 +21,7 @@ jobs:
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
 
       - name: Install dependencies
-        run: mvn install
+        run: mvn install --no-transfer-progress
 
       - name: Test with Maven
         run: mvn test surefire-report:report
