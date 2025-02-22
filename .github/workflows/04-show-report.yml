@@ -31,4 +31,4 @@ jobs:
         uses: turing85/publish-report@v2
         with:
           report-name: Tests
-          report-path: 'target/reports/surefire.html'
+          report-path: 'target/surefire-reports/TEST*.xml'
