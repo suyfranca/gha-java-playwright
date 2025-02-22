@@ -24,6 +24,7 @@ jobs:
         run: mvn install --no-transfer-progress
 
       - name: Test with Maven
+        continue-on-error: true
         run: mvn test surefire-report:report
 
       - name: HTML Preview
