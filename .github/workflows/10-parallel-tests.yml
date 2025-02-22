@@ -20,5 +20,11 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: Install Playwright with dependencies
+        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+
+      - name: Install dependencies
+        run: mvn install
+
       - name: Build and run tests
         run: mvn clean test -Dplaywright.browserName=${{ matrix.browser }}
