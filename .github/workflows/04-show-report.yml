@@ -48,4 +48,4 @@ jobs:
           list-tests: all
           list-suites: all
           fail-on-error: true
-          output-to: both
+          output-to: 'both'
