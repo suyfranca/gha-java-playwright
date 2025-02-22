@@ -2,6 +2,11 @@ name: Show Playwright Reports
 
 on: push
 
+permissions:
+  actions: write
+  checks: write
+  pull-requests: write
+
 jobs:
   test:
     name: Show Playwright Reports
@@ -30,5 +35,6 @@ jobs:
       - name: Publish Test Report
         uses: turing85/publish-report@v2
         with:
-          report-name: Tests
+          report-name: Playwright Tests
+          github-token: ${{ github.token }}
           report-path: 'target/surefire-reports/TEST*.xml'
