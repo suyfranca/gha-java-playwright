@@ -19,9 +19,21 @@ public class PlaywrightTest {
 
     @BeforeAll
     static void setupClass() {
+        // Read the browser type from system property (default to "chromium")
+        String browserName = System.getProperty("playwright.browserName", "chromium");
+
         playwright = Playwright.create();
+        BrowserType browserType;
+        switch (browserName) {
+            case "firefox" -> browserType = playwright.firefox();
+            case "webkit" -> browserType = playwright.webkit();
+            default -> browserType = playwright.chromium();
+        }
+
         BrowserType.LaunchOptions options = new BrowserType.LaunchOptions().setHeadless(true);
-        browser = playwright.chromium().launch(options);
+        browser = browserType.launch(options);
+
+        LOGGER.info(() -> "Launching tests using browser: " + browserName);
     }
 
     @BeforeEach
