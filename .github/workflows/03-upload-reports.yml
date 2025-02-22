@@ -1,9 +1,12 @@
-name: Upload & Display Playwright Reports
+name: Upload Playwright Reports
+
 on: push
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: Upload Playwright Reports
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,13 +23,10 @@ jobs:
       - name: Build and Test with Maven
         run: mvn clean test
 
-      - name: Upload Test Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
         with:
           name: test-artifacts
           path: |
-            target/playwright-report
-            test-results
-
-      - name: Display Test Report in GitHub UI
-        run: echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
+            target/reports
+            target/surefire-reports
