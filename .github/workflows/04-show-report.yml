@@ -1,0 +1,33 @@
+name: Show Playwright Reports
+
+on: push
+
+jobs:
+  test:
+    name: Show Playwright Reports
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install Playwright with dependencies
+        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+
+      - name: Install dependencies
+        run: mvn install
+
+      - name: Test with Maven
+        run: mvn test surefire-report:report
+
+      - name: HTML Preview
+        uses: pavi2410/html-preview-action@v4
+        with:
+          html_file: 'target/reports/surefire.html'
+          job_summary: true
