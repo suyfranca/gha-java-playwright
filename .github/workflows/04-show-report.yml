@@ -27,9 +27,8 @@ jobs:
         continue-on-error: true
         run: mvn test surefire-report:report
 
-      - name: HTML Preview
-        id: html_preview
-        uses: pavi2410/html-preview-action@v4
+      - name: Publish Test Report
+        uses: turing85/publish-report@v2
         with:
-          html_file: 'target/reports/surefire.html'
-          job_summary: true
+          report-name: Tests
+          report-path: 'target/reports/surefire.html'
