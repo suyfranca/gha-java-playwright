@@ -1,20 +1,20 @@
-name: Run Custom PR Comment Reporter
+name: Run Custom Playwright Action
 
 on: push
 
 jobs:
   custom-action:
-    name: Run Custom PR Comment Reporter
+    name: Run Custom Playwright Action
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Simulate test output
+      - name: Simulate Playwright test output
         run: |
           mkdir -p test-results
           echo "Sample Playwright test output" > test-results/report.txt
 
-      - name: Run custom PR Comment Reporter action
-        uses: ./.github/actions/pr-commenter
+      - name: Run custom action to format summary
+        uses: ./.github/actions/playwright-summary
