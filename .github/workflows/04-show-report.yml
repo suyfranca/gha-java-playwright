@@ -48,4 +48,5 @@ jobs:
           list-tests: all
           list-suites: all
           fail-on-error: true
-          output-to: 'step-summary'
+#          output-to: 'step-summary'
+          output-to: 'checks'
