@@ -21,7 +21,7 @@ jobs:
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
 
       - name: Install dependencies
-        run: mvn install --no-transfer-progress
+        run: mvn install --no-transfer-progress -DskipTests
 
       - name: Test with Maven
         continue-on-error: true
