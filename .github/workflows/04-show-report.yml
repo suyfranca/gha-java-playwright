@@ -2,11 +2,6 @@ name: Show Playwright Reports
 
 on: push
 
-#permissions:
-#  actions: write
-#  checks: write
-#  pull-requests: write
-
 jobs:
   test:
     name: Show Playwright Reports
@@ -32,13 +27,6 @@ jobs:
         continue-on-error: true
         run: mvn test surefire-report:report
 
-#      - name: Publish Test Report
-#        uses: turing85/publish-report@v2
-#        with:
-#          report-name: Playwright Tests
-#          github-token: ${{ github.token }}
-#          report-path: 'target/surefire-reports/TEST*.xml'
-
       - name: Publish Test report
         uses: phoenix-actions/test-reporting@v15
         with:
@@ -48,5 +36,4 @@ jobs:
           list-tests: all
           list-suites: all
           fail-on-error: true
-#          output-to: 'step-summary'
-          output-to: 'checks'
+          output-to: 'step-summary'
