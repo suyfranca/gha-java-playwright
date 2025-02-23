@@ -1,11 +1,11 @@
-name: Upload Playwright Reports
+name: Upload Playwright Reports  # Workflow name displayed in GitHub Actions.
 
-on: push
+on: push  # Triggers the workflow on every push event.
 
 jobs:
-  test:
-    name: Upload Playwright Reports
-    runs-on: ubuntu-latest
+  upload-reports:  # Defines a job for running tests and uploading reports.
+    name: Upload Playwright Reports  # The display name of the job.
+    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
 
     steps:
       - name: Checkout repository
@@ -14,14 +14,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: 21
-          cache: maven
+          distribution: temurin  # Uses the Eclipse Temurin JDK.
+          java-version: 21  # Installs Java version 21.
+          cache: maven  # Enables automatic caching for Maven dependencies.
 
       - name: Restore Maven dependencies cache
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
+          path: ~/.m2/repository  # Specifies the directory to cache (Maven's local repository).
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -31,14 +31,15 @@ jobs:
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        # Installs required browsers and dependencies for Playwright.
 
       - name: Run tests
-        run: mvn test surefire-report:report
+        run: mvn test surefire-report:report  # Runs Playwright tests and generates a Surefire test report.
 
-      - name: Upload Test Reports
+      - name: Upload Test Reports  # Uploads test results as artifacts for later review.
         uses: actions/upload-artifact@v4
         with:
-          name: test-artifacts
+          name: test-artifacts  # The artifact name displayed in GitHub Actions.
           path: |
-            target/reports
-            target/surefire-reports
+            target/reports  # Directory containing Playwright reports.
+            target/surefire-reports  # Directory containing Maven's Surefire test reports.

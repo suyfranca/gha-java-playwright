@@ -1,14 +1,14 @@
-name: "Parallel Tests"
+name: "Parallel Tests"  # Workflow name displayed in GitHub Actions.
 
-on: workflow_dispatch
+on: workflow_dispatch  # Allows manual triggering of the workflow.
 
 jobs:
-  build-and-test:
-    name: "Parallel Tests"
-    runs-on: ubuntu-latest
+  build-and-test:  # Defines a job for running Playwright tests in parallel.
+    name: "Parallel Tests"  # The display name of the job.
+    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
     strategy:
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: [chromium, firefox, webkit]  # Defines a matrix to run tests on multiple browsers.
 
     steps:
       - name: Check out repository
@@ -17,23 +17,24 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 21
-          cache: maven
+          distribution: temurin  # Uses the Eclipse Temurin JDK.
+          java-version: 21  # Installs Java version 21.
+          cache: maven  # Enables automatic caching for Maven dependencies.
 
       - name: Restore Maven dependencies cache
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
+          path: ~/.m2/repository  # Specifies the directory to cache (Maven's local repository).
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
       - name: Build & Install
-        run: mvn -B install -D skipTests --no-transfer-progress
+        run: mvn -B install -D skipTests --no-transfer-progress  # Builds the project while skipping tests.
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        # Installs required browsers and dependencies for Playwright.
 
       - name: Run tests
-        run: mvn test -Dplaywright.browserName=${{ matrix.browser }}
+        run: mvn test -Dplaywright.browserName=${{ matrix.browser }}  # Runs tests for the specified browser in parallel.

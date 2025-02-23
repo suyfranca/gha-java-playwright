@@ -1,27 +1,30 @@
-name: Run Playwright Tests
+name: Run Playwright Tests  # Workflow name as displayed in GitHub Actions.
 
-on: push
+on: push  # This workflow triggers on every push to any branch.
 
 jobs:
-  test:
-    name: Run Playwright Tests
-    runs-on: ubuntu-latest
+  run-tests:  # Defines a job named "run-tests".
+    name: Run Playwright Tests  # The display name of the job in the UI.
+    runs-on: ubuntu-latest  # Specifies that the job runs on an Ubuntu environment.
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository  # Step 1: Fetches the latest code from the repository.
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java  # Step 2: Installs the Java runtime.
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: 'temurin'  # Uses the Eclipse Temurin distribution of Java.
+          java-version: '21'  # Installs Java version 21.
 
-      - name: Build & Install
+      - name: Build & Install  # Step 3: Builds the project while skipping tests.
         run: mvn -B install -D skipTests --no-transfer-progress
+        # -B (batch mode) avoids interactive prompts.
+        # --no-transfer-progress speeds up logs by suppressing transfer details.
 
-      - name: Install Playwright Browsers
+      - name: Install Playwright Browsers  # Step 4: Installs Playwright browsers required for testing.
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        # Runs Playwright's CLI command to install required browsers and dependencies.
 
-      - name: Run tests
-        run: mvn test
+      - name: Run tests  # Step 5: Executes the Playwright tests.
+        run: mvn test  # Runs all tests using Maven's test lifecycle.

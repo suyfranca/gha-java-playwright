@@ -1,11 +1,11 @@
-name: Run Playwright Tests on Pull Requests
+name: Run Playwright Tests on Pull Requests  # Workflow name displayed in GitHub Actions.
 
-on: pull_request
+on: pull_request  # Triggers the workflow when a pull request is opened or updated.
 
 jobs:
-  test:
-    name: Run Playwright Tests on Pull Requests
-    runs-on: ubuntu-latest
+  test:  # Defines a job for running Playwright tests.
+    name: Run Playwright Tests on Pull Requests  # The display name of the job.
+    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
 
     steps:
       - name: Checkout repository
@@ -14,14 +14,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: maven
+          distribution: 'temurin'  # Uses the Eclipse Temurin JDK.
+          java-version: '21'  # Installs Java version 21.
+          cache: maven  # Enables automatic caching for Maven dependencies.
 
       - name: Restore Maven dependencies cache
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
+          path: ~/.m2/repository  # Specifies the directory to cache (Maven's local repository).
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -31,6 +31,7 @@ jobs:
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        # Installs required browsers and dependencies for Playwright.
 
       - name: Run tests
-        run: mvn test
+        run: mvn test  # Executes Playwright test suite.

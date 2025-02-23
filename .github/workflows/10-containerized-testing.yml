@@ -1,25 +1,26 @@
-name: Containerized Testing
+name: Containerized Testing  # Workflow name displayed in GitHub Actions.
 
 on:
-  push:
-  pull_request:
+  push:  # Triggers the workflow on every push event.
+  pull_request:  # Also triggers the workflow on every pull request.
 
 jobs:
-  test:
-    name: Containerized Testing
-    runs-on: ubuntu-latest
+  test:  # Defines a job for running Playwright tests inside a container.
+    name: Containerized Testing  # The display name of the job.
+    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
     container:
-      image: maven:latest
+      image: maven:latest  # Uses the latest Maven container.
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build & Install
-        run: mvn -B install -D skipTests --no-transfer-progress
+        run: mvn -B install -D skipTests --no-transfer-progress  # Builds the project inside the container.
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        # Installs required browsers and dependencies for Playwright inside the container.
 
       - name: Run tests
-        run: mvn test
+        run: mvn test  # Executes Playwright test suite inside the container.
