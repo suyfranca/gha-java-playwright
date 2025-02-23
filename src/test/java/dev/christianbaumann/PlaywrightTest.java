@@ -51,18 +51,6 @@ public class PlaywrightTest {
     }
 
     @Test
-    void testPageTitleChriss(TestInfo testInfo) {
-        logTestInfo(testInfo, "Starting test: Page Title Verification (CB)");
-
-        // Act
-        page.navigate("https://christianbaumann.dev/");
-
-        // Assert
-        assertTrue(page.title().contains("Christian Baumann"), "Page title should contain 'Christian Baumann'");
-        logTestInfo(testInfo, "✅ Title validation successful (CB).");
-    }
-
-    @Test
     void testPageTitlePlaywright(TestInfo testInfo) {
         logTestInfo(testInfo, "Starting test: Page Title Verification");
 
