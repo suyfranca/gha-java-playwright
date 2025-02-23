@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Playwright with dependencies
-        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install --with-deps"
+      - name: Build & Install
+        run: mvn -B install -D skipTests --no-transfer-progress
 
-      - name: Install dependencies
-        run: mvn install
+      - name: Install Playwright Browsers
+        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
-      - name: Run Playwright tests
+      - name: Run tests
         run: mvn test
