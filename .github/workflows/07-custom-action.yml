@@ -14,7 +14,9 @@ jobs:
       - name: Simulate Playwright test output
         run: |
           mkdir -p test-results
-          echo "Sample Playwright test output" > test-results/report.txt
+          echo "✅ Test 1: Passed" > test-results/report.txt
+          echo "❌ Test 2: Failed" >> test-results/report.txt
+          echo "✅ Test 3: Passed" >> test-results/report.txt
 
       - name: Run custom action to format summary
         uses: ./.github/actions/playwright-summary

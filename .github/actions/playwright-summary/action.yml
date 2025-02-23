@@ -1,11 +1,13 @@
 name: Playwright Summary
-
-description: "Formats Playwright test results"
+description: "Formats Playwright test results for better readability"
 
 runs:
   using: "composite"
 
   steps:
     - name: Format test results
-      run: cat test-results/report.txt | awk '{print "[TEST RESULT] " $0}'
+      run: |
+        echo "### Playwright Test Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        cat test-results/report.txt | awk '{print "- **" $0 "**"}' >> $GITHUB_STEP_SUMMARY
       shell: bash
