@@ -1,14 +1,14 @@
-name: Run Playwright Tests  # Workflow name as displayed in GitHub Actions.
+name: Run Playwright Tests
 
 on: push  # This workflow triggers on every push to any branch.
 
 jobs:
-  run-tests:  # Defines a job named "run-tests".
-    name: Run Playwright Tests  # The display name of the job in the UI.
-    runs-on: ubuntu-latest  # Specifies that the job runs on an Ubuntu environment.
+  tests:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository  # Step 1: Fetches the latest code from the repository.
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Java  # Step 2: Installs the Java runtime.

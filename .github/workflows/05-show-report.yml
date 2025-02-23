@@ -1,11 +1,11 @@
-name: Show Playwright Reports  # Workflow name displayed in GitHub Actions.
+name: Show Playwright Reports
 
-on: push  # Triggers the workflow on every push event.
+on: push
 
 jobs:
-  show-report:  # Defines a job for running tests and displaying reports.
-    name: Show Playwright Reports  # The display name of the job.
-    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
+  tests:
+    name: Show Playwright Reports
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -14,14 +14,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: temurin  # Uses the Eclipse Temurin JDK.
-          java-version: 21  # Installs Java version 21.
-          cache: maven  # Enables automatic caching for Maven dependencies.
+          distribution: temurin
+          java-version: 21
+          cache: maven
 
       - name: Restore Maven dependencies cache
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository  # Specifies the directory to cache (Maven's local repository).
+          path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -31,10 +31,9 @@ jobs:
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
-        # Installs required browsers and dependencies for Playwright.
 
       - name: Run tests
-        run: mvn test surefire-report:report  # Runs Playwright tests and generates a Surefire test report.
+        run: mvn test surefire-report:report
 
       - name: Publish Test report  # Displays the Surefire test report in the GitHub Actions UI.
         uses: phoenix-actions/test-reporting@v15

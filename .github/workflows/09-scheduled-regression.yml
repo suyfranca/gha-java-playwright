@@ -1,13 +1,13 @@
-name: Run Playwright Tests (nightly)  # Workflow name displayed in GitHub Actions.
+name: Run Playwright Tests (nightly)
 
 on:
   schedule:
     - cron: '0 1 * * 1-5'  # Triggers the workflow at 1 AM UTC, Monday-Friday.
 
 jobs:
-  test:  # Defines a job for running Playwright tests.
-    name: Run Playwright Tests (nightly)  # The display name of the job.
-    runs-on: ubuntu-latest  # Specifies the Ubuntu environment for execution.
+  tests:
+    name: Run Playwright Tests (nightly)
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -16,14 +16,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'  # Uses the Eclipse Temurin JDK.
-          java-version: '21'  # Installs Java version 21.
-          cache: maven  # Enables automatic caching for Maven dependencies.
+          distribution: temurin
+          java-version: 21
+          cache: maven
 
       - name: Restore Maven dependencies cache
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository  # Specifies the directory to cache (Maven's local repository).
+          path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -33,7 +33,6 @@ jobs:
 
       - name: Install Playwright Browsers
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
-        # Installs required browsers and dependencies for Playwright.
 
       - name: Run tests
-        run: mvn test  # Executes Playwright test suite.
+        run: mvn test
