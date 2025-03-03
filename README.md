@@ -305,8 +305,8 @@ Each exercise has:
 
 ### ⚙️ Exercise 13: Debugging GitHub Actions Workflows
 
-📂 **Workflow file:** `.github/workflows/13-debugging.yaml`  
-💡 **Goal:** Learn how to troubleshoot and debug GitHub Actions workflows effectively.
+📂 Workflow file: `.github/workflows/13-debugging.yaml`  
+💡 Goal: Learn how to troubleshoot and debug GitHub Actions workflows effectively.
 
 #### 📌 Instructions
 
@@ -317,7 +317,26 @@ Each exercise has:
 5. Rerun the failed workflow with debugging enabled and analyze the logs.
 6. Fix the issue and confirm a successful run.
 
-📍 **Relevant Documentation:**
+📍 Relevant Documentation:
 - [Enabling Debug Logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)
 - [Understanding Workflow Logs](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs)
 [13-debugging.yaml](..%2Fgha-typescript-playwright%2F.github%2Fworkflows%2F13-debugging.yaml)
+---
+
+### 🔑 Exercise 14: Using Environment Variables and Secrets
+
+📂 Workflow file: `.github/workflows/14-env-secrets.yaml`  
+💡 Goal: Store and use environment variables and secrets securely in workflows.
+
+#### 📌 Instructions
+
+1. Create a new workflow file `14-env-secrets.yaml`.
+2. Define environment variables inside a job.
+3. Store a GitHub Actions secret (`MY_SECRET`) in the repository settings.
+4. Access the secret in a workflow using `${{ secrets.MY_SECRET }}`.
+5. Print environment variables but ensure secrets are not exposed in logs.
+6. Confirm that the workflow executes successfully without revealing sensitive information.
+
+📍 Relevant Documentation:
+- [Using Environment Variables](https://docs.github.com/en/actions/learn-github-actions/environment-variables)
+- [Storing Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
