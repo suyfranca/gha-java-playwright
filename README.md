@@ -300,3 +300,24 @@ Each exercise has:
 
 🔗 Relevant Documentation:
 - [GitHub-hosted runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners)
+
+---
+
+### ⚙️ Exercise 13: Debugging GitHub Actions Workflows
+
+📂 **Workflow file:** `.github/workflows/13-debugging.yaml`  
+💡 **Goal:** Learn how to troubleshoot and debug GitHub Actions workflows effectively.
+
+#### 📌 Instructions
+
+1. Create a new workflow file `13-debugging.yaml`.
+2. Add a job that prints environment variables and debug logs using `ACTIONS_STEP_DEBUG`.
+3. Introduce an intentional failure (e.g., running a non-existent command) and observe error messages.
+4. Enable debug logging in GitHub Actions settings.
+5. Rerun the failed workflow with debugging enabled and analyze the logs.
+6. Fix the issue and confirm a successful run.
+
+📍 **Relevant Documentation:**
+- [Enabling Debug Logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging)
+- [Understanding Workflow Logs](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-workflow-run-logs)
+[13-debugging.yaml](..%2Fgha-typescript-playwright%2F.github%2Fworkflows%2F13-debugging.yaml)

@@ -1,0 +1,36 @@
+name: Debugging GitHub Actions Workflows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug_workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable Debug Logging
+        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+        # This will enable step debugging if secret GITHUB_ACTIONS_STEP_DEBUG is set
+
+      - name: Print Environment Variables
+        run: env
+        # Displays all environment variables for debugging purposes
+
+      - name: Introduce an Intentional Failure
+        run: non_existent_command
+        # This command does not exist and will cause the workflow to fail
+
+      - name: Debugging Information
+        if: failure()
+        run: |
+          echo "⚠️ The previous step failed! Gathering debug information..."
+          echo "Listing files in the workspace:"
+          ls -lah
+          echo "Checking system logs:"
+          dmesg | tail -20
+        # This step runs only if the previous step failed, providing additional insights
+
+      - name: Fix and Verify Workflow
+        if: always()
+        run: echo "✅ Debugging complete. Adjust your workflow and rerun."
+        # This step always runs, indicating that debugging is complete
