@@ -10,6 +10,8 @@ jobs:
     timeout-minutes: 1
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Set up Java 
       uses: actions/setup-java@v4
@@ -19,7 +21,7 @@ jobs:
 
     - name: Build & Install  
       run: mvn -B clean install -D skipTests --no-transfer-progress
-    - uses: actions/checkout@v4
+
 
     - name: Install Playwright Browsers
       run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
