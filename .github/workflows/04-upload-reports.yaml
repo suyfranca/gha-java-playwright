@@ -32,6 +32,9 @@ jobs:
     needs: cache
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Build & Install  
         run: mvn -B clean install -D skipTests --no-transfer-progress
 
@@ -42,6 +45,9 @@ jobs:
     needs: build-and-install
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Run Playwright tests
         run: mvn clean test
 
@@ -49,5 +55,8 @@ jobs:
     needs: run-test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Make test report
         run: echo "Generating test report..."
