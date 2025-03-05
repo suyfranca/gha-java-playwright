@@ -39,12 +39,6 @@ jobs:
     - name: Run Playwright tests
       run: mvn clean test
 
-    - name: Run all reports
-      uses: actions/upload-artifact@v4
-      with:
-        name: reports
-        path: target/reports
-
     - name: Run surefire-reports
       uses: actions/upload-artifact@v4
       with:
