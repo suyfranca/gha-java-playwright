@@ -1,12 +1,12 @@
-name: "playwright tests"
-run-name: playwright-test
+name: "cache"
+run-name: cache
 on:
  push:
   branches: [ main, master ]
  workflow_dispatch:
 
 jobs:
-   test:
+   cache:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
