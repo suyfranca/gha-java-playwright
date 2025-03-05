@@ -18,7 +18,7 @@ jobs:
         java-version: '21'  
 
     - name: Build & Install  
-      run: mvn -B install -D skipTests --no-transfer-progress
+      run: mvn -B clean install -D skipTests --no-transfer-progress
     - uses: actions/checkout@v4
 
     - name: Install Playwright Browsers
